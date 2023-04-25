@@ -40,5 +40,21 @@ namespace DrunkManGame
             }  
         }
 
+        public void Distribute(List<Gamer> gamers)
+        {
+            int deckCount = deck.Count;
+            foreach (var gamer in gamers)
+            {
+                List<Card> userDeck = new List<Card>();
+                for (int i = 0; i < deckCount / gamers.Count; i++)
+                {
+                    userDeck.Add(deck[deck.Count-1]);
+                    deck.RemoveAt(deck.Count-1);
+                }
+
+                gamer.Set = userDeck;
+            }
+        }
+
     }
 }
