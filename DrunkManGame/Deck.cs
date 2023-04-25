@@ -28,8 +28,16 @@ namespace DrunkManGame
         }
 
         public void Shuffle()
-        {
-            //
+        { 
+            Random rng = new Random();  
+            int n = deck.Count;  
+            while (n > 1) {  
+                n--;  
+                int k = rng.Next(n + 1);  
+                Card value = deck[k];  
+                deck[k] = deck[n];  
+                deck[n] = value;  
+            }  
         }
 
     }

@@ -6,6 +6,9 @@
         {
             Deck d = new();
             d.PrintDeck();
+            d.Shuffle();
+            Console.WriteLine('\n');
+            d.PrintDeck();
 
         }
     }
