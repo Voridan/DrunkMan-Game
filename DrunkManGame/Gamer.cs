@@ -25,6 +25,12 @@ namespace DrunkManGame
             }
         }
         
+        public Card GiveCard()
+        {
+            Card returnCard = Set[Set.Count - 1];
+            Set.Remove(returnCard);
+            return returnCard;
+        }
         
     }
 }
