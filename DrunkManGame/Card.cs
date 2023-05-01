@@ -18,6 +18,13 @@ namespace DrunkManGame
             Priority = priority;
         }
 
+        public Card(Card another)
+        {
+            Value = another.Value;
+            Suit = another.Suit;
+            Priority = another.Priority;
+        }
+
         public static Dictionary<string, string> Suits = new()
         {
             { "spades", "♠" },
@@ -26,8 +33,24 @@ namespace DrunkManGame
             { "hearts", "♥" }
         };
 
-        public static Dictionary<string, string> Values = new()
+        public static Dictionary<string, string> Values36 = new()
         {
+            { "6", "6" },
+            { "7", "7" },
+            { "8", "8" },
+            { "9", "9" },
+            { "10", "10" },
+            { "11", "J" },
+            { "12", "Q" },
+            { "13", "K" },
+            { "14", "A" }
+        };
+        public static Dictionary<string, string> Values52 = new()
+        {
+            { "2", "2" },
+            { "3", "3" },
+            { "4", "4" },
+            { "5", "5" },
             { "6", "6" },
             { "7", "7" },
             { "8", "8" },
@@ -77,7 +100,7 @@ namespace DrunkManGame
                 }
                 Console.WriteLine();
             }
-            return " ";
+            return "";
         }
 
         public int CompareTo(object? obj)

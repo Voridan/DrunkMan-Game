@@ -9,13 +9,27 @@ namespace DrunkManGame
     public class Deck
     {
         public List<Card> deck;
-        public Deck() { 
+        public Deck(int size) { 
             deck = new List<Card>();
 
-            foreach (var valKey in Card.Values.Keys)
+            if(size == 36) 
             {
-                foreach (var suitKey in Card.Suits.Keys) {
-                    deck.Add(new Card(Card.Values[valKey], Card.Suits[suitKey], int.Parse(valKey)));
+                foreach (var valKey in Card.Values36.Keys)
+                {
+                    foreach (var suitKey in Card.Suits.Keys)
+                    {
+                        deck.Add(new Card(Card.Values36[valKey], Card.Suits[suitKey], int.Parse(valKey)));
+                    }
+                }
+            }
+            if (size == 52)
+            {
+                foreach (var valKey in Card.Values52.Keys)
+                {
+                    foreach (var suitKey in Card.Suits.Keys)
+                    {
+                        deck.Add(new Card(Card.Values52[valKey], Card.Suits[suitKey], int.Parse(valKey)));
+                    }
                 }
             }
         }

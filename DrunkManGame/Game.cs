@@ -9,11 +9,10 @@ namespace DrunkManGame
     public class Game
     {
         /*
-         * 
          while cnt < val:
             if every user is not empty(users list):
                 1.take card from every user(stepCards)
-                2.compare cards {
+                2.{
                     getCardWithLowestPrior(cards list)
                     getCardWithHighestPrior(cards list)
                     if lowestPriorCard == 6 && highestPriorCard == 14:
@@ -31,5 +30,53 @@ namespace DrunkManGame
                 remove empty users from list 
             
          */
+        void StartGame(List<Gamer> players, int stepsPrediction, int deckSize=36)
+        {
+            Deck deck = new Deck(deckSize);
+            deck.Shuffle();
+
+            List<Gamer> gamers = new(); 
+            foreach (Gamer gamer in players) 
+                gamers.Add(new Gamer(gamer));
+            
+            deck.Distribute(gamers);  // роздаєм карти гравцям
+            int count = 0;  // лічильник ходів
+            
+            while(count < stepsPrediction)
+            {
+                count++;
+                if (ArePlayersEmpty(gamers))
+                {
+                    List<Card> stepSet = new List<Card>();
+                    foreach (Gamer gamer in gamers)
+                        stepSet.Add(gamer.GiveCard());
+
+                }
+                else
+                {
+                    RemoveEmptyPlayers(gamers);
+                }
+            }
+            
+        }
+        
+        private bool ArePlayersEmpty(List<Gamer> gamers) 
+        {
+            return gamers.All(gamer => gamer.Set.Count > 0);
+        }
+
+        private void RemoveEmptyPlayers(List<Gamer> gamers)
+        {
+            foreach(Gamer gamer in gamers)
+            {
+                if(gamer.Set.Count == 0)
+                    gamers.Remove(gamer);
+            }   
+        }
+
+        private Card GetCardWithLowestPrior(List<Card> cards)
+        {
+            return cards.Min();    
+        }
     }
 }

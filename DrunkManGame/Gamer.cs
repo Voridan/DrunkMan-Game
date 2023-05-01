@@ -11,12 +11,20 @@ namespace DrunkManGame
         public string Name { get; set; }
         public List<Card> Set { get; set; }
         public bool? Status { get; set; } // isWinner - true , isLooser - false , null -  undetermined state
-
         public Gamer(string name)
         {
             Name = name;
+            Set = new List<Card>();
         }
-
+        public Gamer(Gamer another)
+        {
+            Name = another.Name;
+            Status = another.Status;
+            foreach (Card card in another.Set) 
+            {
+                Set.Add(new Card(card));
+            }
+        }
         public void WriteUserSet()
         {
             foreach (var setItem in Set)
