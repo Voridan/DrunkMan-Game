@@ -17,7 +17,12 @@
             g1.WriteUserSet();
             Console.WriteLine("user 2 \n");
             g2.WriteUserSet();
-            
+
+            Card c = new("Q",Card.Suits["spades"], 12);
+            Console.WriteLine(c);
+
+
+
         }
     }
 }
