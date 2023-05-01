@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DrunkManGame
 {
-    public class Card
+    public class Card: IComparable
     {
         public string Value { get; set; }
         public string Suit { get; set; }
@@ -78,6 +78,11 @@ namespace DrunkManGame
                 Console.WriteLine();
             }
             return " ";
+        }
+
+        public int CompareTo(object? obj)
+        {
+            return Priority.CompareTo((obj as Card).Priority);
         }
     }
 
