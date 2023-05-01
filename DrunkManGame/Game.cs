@@ -32,9 +32,12 @@ namespace DrunkManGame
          */
         void StartGame(List<Gamer> players, int stepsPrediction, int deckSize=36)
         {
+            if (deckSize != 52 || deckSize != 36)
+                return;
+
             Deck deck = new Deck(deckSize);
             deck.Shuffle();
-
+            int lowestPrior = deckSize == 36 ? 6 : 2;
             List<Gamer> gamers = new(); 
             foreach (Gamer gamer in players) 
                 gamers.Add(new Gamer(gamer));
@@ -50,7 +53,14 @@ namespace DrunkManGame
                     List<Card> stepSet = new List<Card>();
                     foreach (Gamer gamer in gamers)
                         stepSet.Add(gamer.GiveCard());
+                    Card MaxCard = GetCardWithHighestPrior(stepSet);
+                    Card MinCard = GetCardWithLowestPrior(stepSet);
 
+
+                    //if(MinCard.Priority == lowestPrior && MaxCard.Priority == 14)
+                    //{
+                        //gamers[stepSet.FindIndex(el => )]
+                    //}
                 }
                 else
                 {
@@ -72,11 +82,21 @@ namespace DrunkManGame
                 if(gamer.Set.Count == 0)
                     gamers.Remove(gamer);
             }   
+            
         }
 
-        private Card GetCardWithLowestPrior(List<Card> cards)
+        private int Factorial(int n)
         {
-            return cards.Min();    
+            int result = 1;
+            for (int i = n; i > 0; i--)
+            {
+                result *= i;
+            }
+            return result;
         }
+
+        private Card GetCardWithLowestPrior(List<Card> cards) => cards.Min();    
+
+        private Card GetCardWithHighestPrior(List<Card> cards) => cards.Max();
     }
 }
