@@ -39,6 +39,7 @@ namespace DrunkManGame
             deck.Shuffle();
             int lowestPrior = deckSize == 36 ? 6 : 2;
             List<Gamer> gamers = new(); 
+
             foreach (Gamer gamer in players) 
                 gamers.Add(new Gamer(gamer));
             
@@ -48,19 +49,38 @@ namespace DrunkManGame
             while(count < stepsPrediction)
             {
                 count++;
-                if (ArePlayersEmpty(gamers))
+                if (PlayersNotEmpty(gamers))
                 {
                     List<Card> stepSet = new List<Card>();
+                    
                     foreach (Gamer gamer in gamers)
                         stepSet.Add(gamer.GiveCard());
+
                     Card MaxCard = GetCardWithHighestPrior(stepSet);
                     Card MinCard = GetCardWithLowestPrior(stepSet);
+                    List<Card> sameCards = GetEqualCard(stepSet);
 
+                    if (sameCards.Count != 0)
+                    {
+                        if(sameCards.Count == 1)
+                        {
+                            List<Gamer> warriors = GetUsersWithSameCards(gamers, sameCards[0], stepSet);
+                            // war(warriors, stepSet)
+                        }
+                        else
+                        {
+                            // if two or more same cards
+                        }
+                        
+                    }
+                    else if (MinCard.Priority == lowestPrior && MaxCard.Priority == 14)
+                    {
 
-                    //if(MinCard.Priority == lowestPrior && MaxCard.Priority == 14)
-                    //{
-                        //gamers[stepSet.FindIndex(el => )]
-                    //}
+                    }
+                    else
+                    {
+                        // base case
+                    }
                 }
                 else
                 {
@@ -70,7 +90,7 @@ namespace DrunkManGame
             
         }
         
-        private bool ArePlayersEmpty(List<Gamer> gamers) 
+        private bool PlayersNotEmpty(List<Gamer> gamers) 
         {
             return gamers.All(gamer => gamer.Set.Count > 0);
         }
@@ -82,7 +102,6 @@ namespace DrunkManGame
                 if(gamer.Set.Count == 0)
                     gamers.Remove(gamer);
             }   
-            
         }
 
         private int Factorial(int n)
@@ -95,6 +114,53 @@ namespace DrunkManGame
             return result;
         }
 
+        private List<Card> GetEqualCard(List<Card> stepcards)
+        {
+            List<Card> equalsCards = new();
+            int count = stepcards.Count;
+            int checkCount = Factorial(count) / Factorial(2) * Factorial(count - 2);
+            int iterCount = 0;
+            List<Card> cardsBuffer = new(5);
+            for (int i = 0; i < count; i++)   // ідем по картах
+            {
+                for (int j = count - 1; j > i; j--)  // порівнюєм поточну з усіма наступними
+                {
+                    iterCount++;
+                    if(stepcards[i] == stepcards[j])
+                    {
+                        if (equalsCards.Count == 0) 
+                        {
+                            equalsCards.Add(stepcards[i]);
+                        }
+                        else if (!equalsCards.Contains(stepcards[i]))
+                        {
+                            equalsCards.Add(stepcards[i]);
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                    }
+
+                }
+            }
+
+            Console.WriteLine(iterCount==checkCount);
+            
+                       
+            return equalsCards;
+        }
+
+        private List<Gamer> GetUsersWithSameCards(List<Gamer> gamers, Card card, List<Card> stepCards) 
+        {
+            List<Gamer> resList = new();
+            for (int i = 0; i < stepCards.Count; i++)
+            {
+                if (stepCards[i] == card)
+                    resList.Add(gamers[i]);
+            }
+            return resList;
+        }
         private Card GetCardWithLowestPrior(List<Card> cards) => cards.Min();    
 
         private Card GetCardWithHighestPrior(List<Card> cards) => cards.Max();
