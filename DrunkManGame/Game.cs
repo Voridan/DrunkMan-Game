@@ -63,7 +63,11 @@ namespace DrunkManGame
                     if (sameCards.Count != 0)
                     {
                         List<Gamer> warriors = GetUsersWithSameCards(gamers, sameCards.Max(), stepSet);
-                        // war(warriors, stepSet)
+                        
+                     
+                        
+                        
+
                     }
                     else if (MinCard.Priority == lowestPrior && MaxCard.Priority == 14)
                     {
@@ -137,13 +141,11 @@ namespace DrunkManGame
                             continue;
                         }
                     }
-
                 }
             }
 
-            Console.WriteLine(iterCount==checkCount);
-            
-                       
+            Console.WriteLine(iterCount == checkCount);
+
             return equalsCards;
         }
 
@@ -160,5 +162,43 @@ namespace DrunkManGame
         private Card GetCardWithLowestPrior(List<Card> cards) => cards.Min();    
 
         private Card GetCardWithHighestPrior(List<Card> cards) => cards.Max();
+
+        private void War(List<Gamer> warriors, List<Card> stepset , int lowestPrior)
+        {
+            while (true)
+            {
+                for (int i = 0; i < 3; ++i)
+                {
+                    foreach (var warrior in warriors)
+                    {
+                        stepset.Add(warrior.GiveCard());
+                    }
+                }
+                List<Card> lastCards = new();
+                for (int i = 1; i <= warriors.Count; ++i)
+                {
+                    lastCards.Add(stepset[stepset.Count-i]);
+                }
+
+                Card maxCard = lastCards.Max();
+                Card minCard = lastCards.Min();
+                List<Card> sameCards = GetEqualCard(lastCards);
+                if(sameCards.Count !=0) continue;
+                if (minCard.Priority == lowestPrior && maxCard.Priority == 14)
+                {
+                    Gamer warWinner = warriors[lastCards.FindIndex(card => card == minCard)];
+                    foreach (Card card in stepset)
+                        warWinner.Set.Insert(0, card);
+                    break;
+                }
+                else
+                {
+                    Gamer stepWinner = warriors[lastCards.FindIndex(card => card == maxCard)];
+                    foreach (Card card in stepset)
+                        stepWinner.Set.Insert(0, card);
+                    break;
+                }
+            }
+        }
     }
 }
