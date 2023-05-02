@@ -107,6 +107,16 @@ namespace DrunkManGame
         {
             return Priority.CompareTo((obj as Card).Priority);
         }
+        public static bool operator == (Card card1, Card card2)
+        {
+            return card1.Priority == card2.Priority;
+        }
+        public static bool operator !=(Card card1, Card card2)
+        {
+            return card1.Priority != card2.Priority;
+        }
+
+
     }
 
     

@@ -30,9 +30,10 @@ namespace DrunkManGame
                 remove empty users from list 
             
          */
-        void StartGame(List<Gamer> players, int stepsPrediction, int deckSize=36)
+        public void StartGame(List<Gamer> players, int stepsPrediction, int deckSize=36)
         {
-            if (deckSize != 52 || deckSize != 36)
+            Console.WriteLine("\n *** Start game *** \n");
+            if (deckSize != 52 && deckSize != 36)
                 return;
 
             Deck deck = new Deck(deckSize);
@@ -45,11 +46,16 @@ namespace DrunkManGame
             
             deck.Distribute(gamers);  // роздаєм карти гравцям
             int count = 0;  // лічильник ходів
-            
             while(count < stepsPrediction)
             {
                 count++;
-                if (PlayersNotEmpty(gamers))
+                Console.WriteLine(count);
+                if (gamers.Count == 1)
+                {
+                    Console.WriteLine($"Winner: {gamers[0].Name}");
+                    break;
+                }
+                if (PlayersNotEmpty(gamers) && gamers.Count > 1)
                 {
                     List<Card> stepSet = new List<Card>();
                     
@@ -59,15 +65,12 @@ namespace DrunkManGame
                     Card MaxCard = GetCardWithHighestPrior(stepSet);
                     Card MinCard = GetCardWithLowestPrior(stepSet);
                     List<Card> sameCards = GetEqualCard(stepSet);
-
                     if (sameCards.Count != 0)
                     {
+                        Console.WriteLine("\n *** War *** \n");
                         List<Gamer> warriors = GetUsersWithSameCards(gamers, sameCards.Max(), stepSet);
-                        
-                     
-                        
-                        
-
+                        War(warriors, stepSet, lowestPrior);
+                        //перевірити чи в гравця достатньо карт для війни!!!!!
                     }
                     else if (MinCard.Priority == lowestPrior && MaxCard.Priority == 14)
                     {
@@ -97,11 +100,20 @@ namespace DrunkManGame
 
         private void RemoveEmptyPlayers(List<Gamer> gamers)
         {
-            foreach(Gamer gamer in gamers)
+            //foreach(Gamer gamer in gamers)
+            //{
+            //    if(gamer.Set.Count == 0)
+            //        gamers.Remove(gamer);
+            //}   
+            for (int i = 0; i<gamers.Count; i++)
             {
-                if(gamer.Set.Count == 0)
-                    gamers.Remove(gamer);
-            }   
+                if (gamers[i].Set.Count == 0)
+                {
+                    gamers.RemoveAt(i);
+                    i--;
+                }
+                    
+            }
         }
 
         private int Factorial(int n)
@@ -120,7 +132,6 @@ namespace DrunkManGame
             int count = stepcards.Count;
             int checkCount = Factorial(count) / Factorial(2) * Factorial(count - 2);
             int iterCount = 0;
-            List<Card> cardsBuffer = new(5);
             for (int i = 0; i < count; i++)   // ідем по картах
             {
                 for (int j = count - 1; j > i; j--)  // порівнюєм поточну з усіма наступними
@@ -143,9 +154,6 @@ namespace DrunkManGame
                     }
                 }
             }
-
-            Console.WriteLine(iterCount == checkCount);
-
             return equalsCards;
         }
 
