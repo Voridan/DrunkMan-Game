@@ -67,11 +67,15 @@ namespace DrunkManGame
                     }
                     else if (MinCard.Priority == lowestPrior && MaxCard.Priority == 14)
                     {
-
+                        Gamer stepWinner = gamers[stepSet.FindIndex(card => card == MinCard)];
+                        foreach (Card card in stepSet)
+                            stepWinner.Set.Insert(0, card);
                     }
                     else
                     {
-                        // base case
+                        Gamer stepWinner = gamers[stepSet.FindIndex(card => card == MaxCard)];
+                        foreach (Card card in stepSet)
+                            stepWinner.Set.Insert(0, card);
                     }
                 }
                 else
