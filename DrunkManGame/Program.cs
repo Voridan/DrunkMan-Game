@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            Deck d = new();
+            Deck d = new(36);
             // d.PrintDeck();
             d.Shuffle();
             Console.WriteLine('\n');

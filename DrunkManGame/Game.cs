@@ -62,16 +62,8 @@ namespace DrunkManGame
 
                     if (sameCards.Count != 0)
                     {
-                        if(sameCards.Count == 1)
-                        {
-                            List<Gamer> warriors = GetUsersWithSameCards(gamers, sameCards[0], stepSet);
-                            // war(warriors, stepSet)
-                        }
-                        else
-                        {
-                            // if two or more same cards
-                        }
-                        
+                        List<Gamer> warriors = GetUsersWithSameCards(gamers, sameCards.Max(), stepSet);
+                        // war(warriors, stepSet)
                     }
                     else if (MinCard.Priority == lowestPrior && MaxCard.Priority == 14)
                     {
