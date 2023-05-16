@@ -62,51 +62,66 @@ namespace DrunkManGame
             { "14", "A" }
         };
 
+        //public override string ToString()
+        //{
+        //    int sizeCol= 7;
+        //    int sizeRow = 5;
+
+        //    for (int i = 0; i < sizeRow; i++) {
+        //        for (int j = 0; j < sizeCol; j++)
+        //        {
+        //            if (i == 0 && j == 0 || i == sizeRow - 1 && j == sizeCol - 1)
+        //            {
+        //                Console.Write(Value);
+        //            }
+        //            else if (i == 0 || i == sizeRow - 1)
+        //            {
+        //                if (j % 2 != 0)
+        //                {
+        //                    Console.Write(' ');
+        //                }
+        //                else if (j % 2 == 0)
+        //                {
+        //                    Console.Write("#");
+        //                }    
+        //            }
+        //            else if (j == 0 || j == sizeCol - 1)
+        //            {
+        //                Console.Write("#");
+        //            }
+        //            else if (j == 3 && i == 2)
+        //            {
+        //                Console.Write(Suit);
+        //            }
+        //            else
+        //            {
+        //                Console.Write(" ");
+        //            }
+        //        }
+        //        Console.WriteLine();
+        //    }
+        //    return "";
+        //}
+
         public override string ToString()
         {
-            int sizeCol= 7;
-            int sizeRow = 5;
-
-            for (int i = 0; i < sizeRow; i++) {
-                for (int j = 0; j < sizeCol; j++)
-                {
-                    if (i == 0 && j == 0 || i == sizeRow - 1 && j == sizeCol - 1)
-                    {
-                        Console.Write(Value);
-                    }
-                    else if (i == 0 || i == sizeRow - 1)
-                    {
-                        if (j % 2 != 0)
-                        {
-                            Console.Write(' ');
-                        }
-                        else if (j % 2 == 0)
-                        {
-                            Console.Write("#");
-                        }    
-                    }
-                    else if (j == 0 || j == sizeCol - 1)
-                    {
-                        Console.Write("#");
-                    }
-                    else if (j == 3 && i == 2)
-                    {
-                        Console.Write(Suit);
-                    }
-                    else
-                    {
-                        Console.Write(" ");
-                    }
-                }
-                Console.WriteLine();
-            }
-            return "";
+            return $"{Value} {Suit} {Priority}";
         }
 
         public int CompareTo(object? obj)
         {
             return Priority.CompareTo((obj as Card).Priority);
         }
+        public static bool operator == (Card card1, Card card2)
+        {
+            return card1.Priority == card2.Priority;
+        }
+        public static bool operator !=(Card card1, Card card2)
+        {
+            return card1.Priority != card2.Priority;
+        }
+
+
     }
 
     

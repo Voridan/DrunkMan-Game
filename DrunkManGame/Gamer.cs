@@ -39,6 +39,21 @@ namespace DrunkManGame
             Set.Remove(returnCard);
             return returnCard;
         }
-        
+
+        public List<Card> GiveAllCards()
+        {
+            List<Card> tempSet = new List<Card>(Set);
+            Set.Clear();
+            return tempSet;
+        }
+
+        public override string ToString()
+        {
+            Console.Write($"{Name}: ");
+            foreach (Card card in Set)
+                Console.Write($"{card}; ");
+            return "";
+        }
+
     }
 }
