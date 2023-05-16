@@ -12,7 +12,7 @@
             Card c2 = new Card("10", Card.Suits["clubs"], 10);
 
             Game myGame = new Game();
-            myGame.StartGame(new List<Gamer> { g1, g2, g3, g4 }, 100);
+            myGame.StartGame(new List<Gamer> { g1, g2, g3, g4 }, 1000);
 
 
         }
