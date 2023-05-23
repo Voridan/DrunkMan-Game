@@ -33,80 +33,81 @@ namespace DrunkManGame
             { "hearts", "♥" }
         };
 
-        public static Dictionary<string, string> Values36 = new()
+        public static Dictionary<int, string> Values36 = new()
         {
-            { "6", "6" },
-            { "7", "7" },
-            { "8", "8" },
-            { "9", "9" },
-            { "10", "10" },
-            { "11", "J" },
-            { "12", "Q" },
-            { "13", "K" },
-            { "14", "A" }
+            { 6, "6" },
+            { 7, "7" },
+            { 8, "8" },
+            { 9, "9" },
+            { 10, "10" },
+            { 11, "J" },
+            { 12, "Q" },
+            { 13, "K" },
+            { 14, "A" }
         };
-        public static Dictionary<string, string> Values52 = new()
+        public static Dictionary<int, string> Values52 = new()
         {
-            { "2", "2" },
-            { "3", "3" },
-            { "4", "4" },
-            { "5", "5" },
-            { "6", "6" },
-            { "7", "7" },
-            { "8", "8" },
-            { "9", "9" },
-            { "10", "10" },
-            { "11", "J" },
-            { "12", "Q" },
-            { "13", "K" },
-            { "14", "A" }
+            { 2, "2" },
+            { 3, "3" },
+            { 4, "4" },
+            { 5, "5" },
+            { 6, "6" },
+            { 7, "7" },
+            { 8, "8" },
+            { 9, "9" },
+            { 10, "10" },
+            { 11, "J" },
+            { 12, "Q" },
+            { 13, "K" },
+            { 14, "A" }
         };
-
-        //public override string ToString()
-        //{
-        //    int sizeCol= 7;
-        //    int sizeRow = 5;
-
-        //    for (int i = 0; i < sizeRow; i++) {
-        //        for (int j = 0; j < sizeCol; j++)
-        //        {
-        //            if (i == 0 && j == 0 || i == sizeRow - 1 && j == sizeCol - 1)
-        //            {
-        //                Console.Write(Value);
-        //            }
-        //            else if (i == 0 || i == sizeRow - 1)
-        //            {
-        //                if (j % 2 != 0)
-        //                {
-        //                    Console.Write(' ');
-        //                }
-        //                else if (j % 2 == 0)
-        //                {
-        //                    Console.Write("#");
-        //                }    
-        //            }
-        //            else if (j == 0 || j == sizeCol - 1)
-        //            {
-        //                Console.Write("#");
-        //            }
-        //            else if (j == 3 && i == 2)
-        //            {
-        //                Console.Write(Suit);
-        //            }
-        //            else
-        //            {
-        //                Console.Write(" ");
-        //            }
-        //        }
-        //        Console.WriteLine();
-        //    }
-        //    return "";
-        //}
 
         public override string ToString()
         {
-            return $"{Value} {Suit} {Priority}";
+            int sizeCol = 7;
+            int sizeRow = 5;
+
+            for (int i = 0; i < sizeRow; i++)
+            {
+                for (int j = 0; j < sizeCol; j++)
+                {
+                    if (i == 0 && j == 0 || i == sizeRow - 1 && j == sizeCol - 1)
+                    {
+                        Console.Write(Value);
+                    }
+                    else if (i == 0 || i == sizeRow - 1)
+                    {
+                        if (j % 2 != 0)
+                        {
+                            Console.Write(' ');
+                        }
+                        else if (j % 2 == 0)
+                        {
+                            Console.Write("#");
+                        }
+                    }
+                    else if (j == 0 || j == sizeCol - 1)
+                    {
+                        Console.Write("#");
+                    }
+                    else if (j == 3 && i == 2)
+                    {
+                        Console.Write(Suit);
+                    }
+                    else
+                    {
+                        Console.Write(" ");
+                    }
+                }
+                Console.WriteLine();
+            }
+            return "";
         }
+
+        //public override string ToString()
+        //{
+        //    return $"{Value} {Suit} {Priority}";
+        //}
 
         public int CompareTo(object? obj)
         {
@@ -120,9 +121,5 @@ namespace DrunkManGame
         {
             return card1.Priority != card2.Priority;
         }
-
-
     }
-
-    
 }

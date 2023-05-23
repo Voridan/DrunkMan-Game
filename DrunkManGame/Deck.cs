@@ -18,7 +18,7 @@ namespace DrunkManGame
                 {
                     foreach (var suitKey in Card.Suits.Keys)
                     {
-                        deck.Add(new Card(Card.Values36[valKey], Card.Suits[suitKey], int.Parse(valKey)));
+                        deck.Add(new Card(Card.Values36[valKey], Card.Suits[suitKey], valKey));
                     }
                 }
             }
@@ -28,7 +28,7 @@ namespace DrunkManGame
                 {
                     foreach (var suitKey in Card.Suits.Keys)
                     {
-                        deck.Add(new Card(Card.Values52[valKey], Card.Suits[suitKey], int.Parse(valKey)));
+                        deck.Add(new Card(Card.Values52[valKey], Card.Suits[suitKey], valKey));
                     }
                 }
             }
