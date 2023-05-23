@@ -8,31 +8,9 @@ namespace DrunkManGame
 {
     public class Game
     {
-        /*
-         while cnt < val:
-            if every user is not empty(users list):
-                1.take card from every user(stepCards)
-                2.{
-                    getCardWithLowestPrior(cards list)
-                    getCardWithHighestPrior(cards list)
-                    if lowestPriorCard == 6 && highestPriorCard == 14:
-                        (users list)[cards list.index(lowestPriorCard)].set += stepCards
-                    else:
-                        if cards list has the same cards:
-                            getUsersWithEqualCards()
-                            war(users with equal cards, step cards)
-                        i = (user in users list with highestPirorCard).index
-                        user_i.set += stepcards
-                        
-                }
-           
-            else if at least one user empty(users list):
-                remove empty users from list 
-            
-         */
         public void StartGame(List<Gamer> players, int stepsPrediction, int deckSize=36)
         {
-            Console.WriteLine("\n *** Start game *** \n");
+            Console.WriteLine("\n *** Гра почалась *** \n");
             if (deckSize != 52 && deckSize != 36)
                 return;
 
@@ -49,18 +27,19 @@ namespace DrunkManGame
             bool gameEnded = false;
             while(count < stepsPrediction)
             {
-                count++;
-                //Console.WriteLine($"\nКрок: {count}");
-                //foreach (Gamer gamer in gamers)
-                //    Console.WriteLine(gamer);
+                
                 if (gamers.Count == 1)
                 {
-                    Console.WriteLine($"Winner: {gamers[0].Name}");
+                    Console.WriteLine($"Переможець: {gamers[0].Name}");
                     gameEnded = true;
                     break;
                 }
+                
                 if (PlayersNotEmpty(gamers) && gamers.Count > 1)
                 {
+                    Console.WriteLine($"\n==== Крок: {++count} ====\n");
+                    foreach (Gamer gamer in gamers)
+                        Console.WriteLine(gamer);
                     List<Card> stepSet = new List<Card>();
                     //foreach (Gamer gamer in gamers)
                     //    Console.WriteLine(gamer);
@@ -70,12 +49,12 @@ namespace DrunkManGame
                     Card MaxCard = GetCardWithHighestPrior(stepSet);
                     Card MinCard = GetCardWithLowestPrior(stepSet);
                     List<Card> sameCards = GetEqualCard(stepSet);
-                    //foreach (Card card in stepSet)
-                    //    Console.WriteLine(card);
-                    
+                    foreach (Card card in stepSet)
+                        Console.WriteLine(card);
+
                     //Console.WriteLine("-------------------------");
-                        
-                    
+
+
                     if (MinCard.Priority == lowestPrior && MaxCard.Priority == 14)
                     {
                         Gamer stepWinner = gamers[stepSet.FindIndex(card => card == MinCard)];
@@ -182,26 +161,10 @@ namespace DrunkManGame
 
         private void War(List<Gamer> warriors, List<Card> stepset , int lowestPrior)
         {
+            int warStep = 0;
             while (true)
             {
-
-                Console.WriteLine("\n *** War *** \n");
-
-                //for (int i = 0; i < warriors.Count; ++i)
-                //{
-                //    if (warriors[i].Set.Count < 3)
-                //    {
-                //        stepset.AddRange(warriors[i].GiveAllCards());
-                //        warriors.Remove(warriors[i]);
-                //    }
-                //}
-                //if (warriors.Count != 1)
-                //    War(warriors, stepset, lowestPrior);
-                //else
-                //{
-                //    warriors[0].Set.AddRange(stepset);
-                //}
-
+                Console.WriteLine($"\n *** Війна *** \n Крок: {++warStep}\n");
                 for (int i = 0; i < warriors.Count; ++i)
                 {
                     if (warriors[i].Set.Count < 3)
@@ -215,53 +178,29 @@ namespace DrunkManGame
                     warriors[0].Set.AddRange(stepset);
                     break;
                 }
-
-
-                //foreach (Gamer gamer in warriors)
-                //    Console.WriteLine($"set count: {gamer.Set.Count}");
                 for (int i = 0; i < 3; ++i)
                 {
                     foreach (var warrior in warriors)
                     {
-                        Console.WriteLine($"{warrior.Name} set count: {warrior.Set.Count}");
                         stepset.Add(warrior.GiveCard());
                     }
                 }
+
                 List<Card> lastCards = new();
                 for (int i = 1; i <= warriors.Count; ++i)
                 {
                     lastCards.Add(stepset[stepset.Count-i]);
                 }
 
-                //for (int i = 0; i < warriors.Count; ++i)
-                //{
-                //    if (warriors[i].Set.Count < 3)
-                //    {
-                //        stepset.AddRange(warriors[i].GiveAllCards());
-                //        warriors.Remove(warriors[i]);
-                //    }
-                //}
-                //if (warriors.Count == 1)
-                //{
-                //    warriors[0].Set.AddRange(stepset);
-                //    break;
-                //}
+                foreach (Card card in lastCards)
+                    Console.WriteLine(card);
 
                 Card maxCard = lastCards.Max();
                 Card minCard = lastCards.Min();
                 List<Card> sameCards = GetEqualCard(lastCards);
                 if(sameCards.Count != 0) {
-                    Console.WriteLine("*** Second War **********************************");
                     continue;
                 }
-                    
-                //foreach (Gamer gamer in warriors)
-                //    Console.WriteLine($"{gamer.Name} set count: {gamer.Set.Count}");
-                //foreach (Card card in lastCards)
-                //    Console.WriteLine($"Last card: {card}");
-
-                
-
                 if (minCard.Priority == lowestPrior && maxCard.Priority == 14)
                 {
                     Gamer warWinner = warriors[lastCards.FindIndex(card => card == minCard)];
@@ -277,6 +216,10 @@ namespace DrunkManGame
                     break;
                 }
             }
+            foreach (Gamer gamer in warriors)
+                Console.WriteLine(gamer);
+
+            Console.WriteLine("\n *** Війна закінчилась ***\n");
         }
     }
 }

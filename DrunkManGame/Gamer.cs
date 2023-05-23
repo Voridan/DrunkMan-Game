@@ -49,10 +49,7 @@ namespace DrunkManGame
 
         public override string ToString()
         {
-            Console.Write($"{Name}: ");
-            foreach (Card card in Set)
-                Console.Write($"{card}; ");
-            return "";
+            return $"{Name}: Кількість карт в колоді: {Set.Count}";
         }
 
     }
